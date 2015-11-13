@@ -39,6 +39,28 @@ readMore.directive('readMore', function () {
                 readmore(clone.text().trim());
             });
 
+            function splitIntoWords(div) {
+              function removeEmptyStrings(k) {
+                return k !== '';
+              }
+              var rWordBoundary = /[\s\n\t]+/; // Includes space, newline, tab
+              var output = [];
+              for (var i = 0; i < div.childNodes.length; ++i) { // Iterate through all nodes
+                var node = div.childNodes[i];
+                if (node.nodeType === Node.TEXT_NODE) { // The child is a text node
+                  var words = node.nodeValue.split(rWordBoundary).filter(removeEmptyStrings);
+                  if (words.length) {
+                    output.push.apply(output, words);
+                  }
+                } else if (node.nodeType === Node.COMMENT_NODE) {
+                  // What to do here? You can do what you want
+                } else {
+                  output.push(node.outerHTML);
+                }
+              }
+              return output;
+            }
+
             function readmore(text) {
 
                 var text = text,
@@ -59,7 +81,10 @@ readMore.directive('readMore', function () {
 
                 if (countBy === 'words') { // Count words
 
-                    foundWords = text.split(/\s+/);
+                    //http://stackoverflow.com/a/26833172/1327637
+                    var span = document.createElement('span')
+                    span.innerHTML = text;
+                    foundWords = splitIntoWords(span);
 
                     if (foundWords.length > limit) {
                         text = foundWords.slice(0, limit).join(' ') + ellipsis;
