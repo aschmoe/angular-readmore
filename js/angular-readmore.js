@@ -21,7 +21,9 @@ readMore.directive('readMore', function () {
             ellipsis: '@',
             char: '@',
             limit: '@',
-            content: '@'
+            content: '@',
+            moreCallback: '&',
+            lessCallback: '&'
         },
         link: function (scope, elem, attr, ctrl, transclude) {
             var moreText = angular.isUndefined(scope.moreText) ? ' <a class="read-more">Read More...</a>' : ' <a class="read-more">' + scope.moreText + '</a>',
@@ -80,11 +82,17 @@ readMore.directive('readMore', function () {
                     $(this).hide();
                     elem.find('.ellipsis').hide();
                     elem.find('.more-text').addClass('show').slideDown();
+                    if(scope.moreCallback) {
+                        scope.moreCallback();
+                    }
                 });
                 elem.find('.read-less').on('click', function () {
                     elem.find('.read-more').show();
                     elem.find('.ellipsis').show();
                     elem.find('.more-text').hide().removeClass('show');
+                    if(scope.lessCallback) {
+                        scope.lessCallback();
+                    }
                 });
 
             }

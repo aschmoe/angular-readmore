@@ -1,0 +1,15 @@
+{
+  "name": "angular-readmore",
+  "version": "0.0.1",
+  "homepage": "https://github.com/aschmoe/angular-readmore",
+  "authors": [
+    "pattysnippets/angular-readmore"
+  ],
+  "description": "Angular Read More Directive",
+  "main": "js/angular-readmore.js",
+  "moduleType": [],
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT"
+}
