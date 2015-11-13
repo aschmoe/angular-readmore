@@ -39,6 +39,8 @@ or
 | char | null (default active)      |    null |
 | limit | 150    |  (int)  |
 | content | null     |   {{scope}}, (string) | 
+| moreCallback | null     |   (function) | 
+| lessCallback | null     |   (function) | 
 
 
 #### Other Examples
@@ -70,6 +72,10 @@ or
 + Change character/word limit
 
 `<p read-more limit=“250”></p>`
+
++ Callback on more / less click
+
+`<p read-more more-callback=“myFunction()” less-callback="myOtherFunction()"></p>`
 
 
 
