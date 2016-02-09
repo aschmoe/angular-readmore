@@ -26,8 +26,8 @@ readMore.directive('readMore', function () {
             lessCallback: '&'
         },
         link: function (scope, elem, attr, ctrl, transclude) {
-            var moreText = angular.isUndefined(scope.moreText) ? ' <a class="read-more">Read More...</a>' : ' <a class="read-more">' + scope.moreText + '</a>',
-                lessText = angular.isUndefined(scope.lessText) ? ' <a class="read-less">Less ^</a>' : ' <a class="read-less">' + scope.lessText + '</a>',
+            var moreText = angular.isUndefined(scope.moreText) ? ' <a href="#" class="read-more">Read More...</a>' : ' <a class="read-more">' + scope.moreText + '</a>',
+                lessText = angular.isUndefined(scope.lessText) ? ' <a href="#" class="read-less">Less ^</a>' : ' <a class="read-less">' + scope.lessText + '</a>',
                 ellipsis = angular.isUndefined(scope.ellipsis) ? '' : '<span class="ellipsis">' + scope.ellipsis + '</span>',
                 limit = angular.isUndefined(scope.limit) ? 150 : scope.limit;
 
@@ -35,9 +35,9 @@ readMore.directive('readMore', function () {
                 readmore(str);
             });
 
-            transclude(scope.$parent, function (clone, scope) {
-                readmore(clone.text().trim());
-            });
+            // transclude(scope.$parent, function (clone, scope) {
+            //     readmore(clone.text().trim());
+            // });
 
             function splitIntoWords(div) {
               function removeEmptyStrings(k) {
@@ -104,12 +104,13 @@ readMore.directive('readMore', function () {
 
                 elem.append(markup);
                 elem.find('.read-more').on('click', function () {
-                    $(this).hide();
+                    elem.find('.read-more').hide();
                     elem.find('.ellipsis').hide();
                     elem.find('.more-text').addClass('show').slideDown();
                     if(scope.moreCallback) {
                         scope.moreCallback();
                     }
+                    return false;
                 });
                 elem.find('.read-less').on('click', function () {
                     elem.find('.read-more').show();
@@ -118,6 +119,7 @@ readMore.directive('readMore', function () {
                     if(scope.lessCallback) {
                         scope.lessCallback();
                     }
+                    return false;
                 });
 
             }
