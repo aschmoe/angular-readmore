@@ -1,10 +1,9 @@
 a.read-more, a.read-less {
-	cursor: pointer;
-	color: blue;
+  cursor: pointer;
 }
 span.more-text {
-	display: none;
+  display: none;
 } 
 span.more-text.show {
-		display: inline !important
+    display: inline !important
 }
